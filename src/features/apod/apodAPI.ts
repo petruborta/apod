@@ -45,7 +45,7 @@ export const fetchNextAPOD = async (
 
     const nextDate = getNextDay(apodDate);
     const currentDate = new Date(getCurrentDate());
-    const isAfterToday = nextDate.getMilliseconds > currentDate.getMilliseconds;
+    const isAfterToday = nextDate.getTime() > currentDate.getTime();
 
     const res = await axios.get<APODResponse>(
       `${NASA_APOD_API}&date=${getDate(isAfterToday ? currentDate : nextDate)}`
