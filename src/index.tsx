@@ -1,20 +1,30 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
+import React, { StrictMode, Suspense } from 'react';
+import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
-import './index.css';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { PersistGate } from 'redux-persist/integration/react';
+import { store, persistor } from './app/store';
+import { CircularProgress } from '@mui/material';
 import App from './App';
-import { store } from './redux/store';
 import reportWebVitals from './reportWebVitals';
+import './i18n';
+import './index.scss';
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
+const container = document.getElementById('root') as HTMLElement;
+const root = createRoot(container);
+
 root.render(
-  <React.StrictMode>
+  <StrictMode>
     <Provider store={store}>
-      <App />
+      <PersistGate loading={null} persistor={persistor}>
+        <Router>
+          <Suspense fallback={<CircularProgress />}>
+            <App />
+          </Suspense>
+        </Router>
+      </PersistGate>
     </Provider>
-  </React.StrictMode>
+  </StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

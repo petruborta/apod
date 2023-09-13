@@ -1,0 +1,23 @@
+{
+  "logo-alt": "Image of Guider's logo",
+  "home": "Home",
+  "apod": "APOD",
+  "favourites": "Favourites",
+  "home-title": "Welcome home!",
+  "favourites-title": "Favourites",
+  "no-favourites-body": {
+    "part1": "Nothing yet. Maybe you'll like ",
+    "part2": "today's picture"
+  },
+  "apod-title": "Astronomy Picture of the Day",
+  "apod-save": "Save",
+  "apod-saved": "Saved",
+  "apod-next": "Next",
+  "no-apod": "Nothing to display. Please try again later.",
+  "not-found-title": "404",
+  "not-found-subtitle": "Sorry, page not found",
+  "not-found-body": {
+    "part1": "Take me ",
+    "part2": "home"
+  }
+}

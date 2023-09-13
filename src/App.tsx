@@ -1,56 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import Counter from './components/Counter/Counter';
-import { useAppDispatch, useAppSelector } from './redux/hooks';
-import { counterActions } from './redux/counter/slice';
+import React, { lazy } from 'react';
+import { Routes, Route } from 'react-router-dom';
+import { Container } from '@mui/material';
+import { Layout } from './layout';
+import { Home } from './pages/Home';
+import { NotFound } from './pages/NotFound';
 
-function App(): JSX.Element {
-  const dispatch = useAppDispatch();
+const APOD = lazy(async () => await import('./features/apod/APOD'));
+const Favourites = lazy(
+  async () => await import('./features/favourites/Favourites')
+);
 
-  const { value } = useAppSelector((state) => state.counter);
-
-  const increment = (): void => {
-    dispatch(counterActions.increment());
-  };
-
-  const decrement = (): void => {
-    dispatch(counterActions.decrement());
-  };
-
-  const incrementAsync = (): void => {
-    dispatch(counterActions.incrementAsync());
-  };
-
-  const decrementAsync = (): void => {
-    dispatch(counterActions.decrementAsync());
-  };
-
+export default function App(): JSX.Element {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter
-          onIncrement={increment}
-          onDecrement={decrement}
-          onIncrementAsync={incrementAsync}
-          onDecrementAsync={decrementAsync}
-          value={value}
-        />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container sx={{ textAlign: 'center' }} data-testid="app">
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route path="" element={<Home />} />
+          <Route path="astronomy-picture-of-the-day" element={<APOD />} />
+          <Route path="favourites" element={<Favourites />} />
+        </Route>
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </Container>
   );
 }
-
-export default App;
